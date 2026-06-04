@@ -10,6 +10,17 @@ The point is the survey + the rigour, not any individual signal. Most signals fa
 
 When in doubt about whether to add a feature: **does it make the evaluation more honest, or the survey more comprehensive?** Prefer those over feature creep that doesn't serve the study.
 
+## Current state — v1.0.0 (polish / consistency)
+
+The harness and the **5-case survey are complete** (112 tests, ruff clean, green CI on Python 3.10–3.13, hero figure + full writeup). v1 is a **polish / honesty-alignment release, not a feature release**: the goal is that a stranger gets one coherent story. Future work (paper-trading, regime-gating, intraday, point-in-time universe feed, stronger-LLM benchmark) is tracked in `ROADMAP.md` and is explicitly out of v1 scope.
+
+**Do not break / do not alter in any way that changes survey results:**
+
+- `src/backtester/eval/{cpcv,statistics,costs}.py` and `src/backtester/labels/triple_barrier.py` — the load-bearing eval/label math.
+- The 5 notebooks under `notebooks/` and everything in `tests/`.
+- `.github/workflows/ci.yml`.
+- The package is intentionally imported as `backtester` even though the project/repo is `ml-signals-in-markets`; do not rename the package or the `src/backtester/` tree.
+
 ## Commands
 
 ```bash
@@ -26,7 +37,7 @@ Equivalent raw forms:
 
 ```bash
 pip install -e ".[dev,notebooks,ml,llm]"
-pytest                                       # 90+ tests
+pytest                                       # 112 tests
 pytest tests/test_eval_cpcv.py               # one file
 pytest -k deflated                           # by keyword
 ruff check . && ruff check . --fix

@@ -6,9 +6,34 @@ uses semantic versioning where versions correspond to harness milestones.
 
 ## [Unreleased]
 
+## [1.0.0] — 2026-06-04
+
+First public release: the honest-evaluation harness plus the **complete
+5-case empirical survey** (16 specifications across two asset classes, six
+model families, three label types), with 112 passing tests, ruff clean, and
+green CI on Python 3.10–3.13. The survey runs end-to-end and hermetically in
+CI via `BACKTESTER_FIXTURE_MODE=1`; the headline figure is `docs/results.png`
+and the paper-lite writeup is `docs/writeup.md`. This is a polish / honesty-
+alignment release — the underlying harness and survey results are unchanged
+from the `0.2.0` milestone.
+
+### Added
+- `ROADMAP.md` separating the shipped v1 study from deferred research
+  extensions (paper-trading, regime-gating, intraday, point-in-time universe
+  feed, stronger-LLM benchmark).
+- `ALPHA_VANTAGE_API_KEY` placeholder in `.env.example`, documented as
+  reserved / not yet read by the code.
+
 ### Changed
 - Repository renamed `backtester` → `ml-signals-in-markets` (the Python
-  package is still imported as `backtester`).
+  package is still intentionally imported as `backtester`).
+- `pyproject.toml` project identity set to `ml-signals-in-markets` and version
+  bumped to `1.0.0`; a note records that the import/package name stays
+  `backtester` on purpose.
+- README collapses the previously contradictory "Planned scope" and "Status"
+  tables into one survey table (all 5 cases complete) plus a single results
+  table, with future work moved to a dedicated Roadmap section.
+- Test count corrected to a single figure (112) across README and `CLAUDE.md`.
 - `samples/fixtures/` reorganised into per-source subdirectories
   (`yfinance/`, `binance/`, `fred/`).
 - `_cache_path()` consolidated into `data/_cache.py`; the four date-keyed

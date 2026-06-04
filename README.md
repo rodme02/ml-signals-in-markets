@@ -6,7 +6,7 @@
 
 > **Five case studies. Two asset classes. Every popular ML-trading recipe — gradient boosting, deep sequence models, LLM-derived sentiment, classical factor — evaluated through the same advanced harness with strong pragmatic discussion of every result.**
 
-![Pipeline overview](docs/results.png)
+![Survey results: net-of-cost Sharpe with 95% bootstrap CI across 16 specifications](docs/results.png)
 
 ## Why this exists
 
@@ -29,21 +29,21 @@ Every signal in this repo is evaluated through the same harness:
 
 The conclusion most signals deserve is "the data doesn't support the claim." This project's framing tells that story honestly — *and* runs Jegadeesh-Titman 12-1 momentum (a known classical signal) through the same harness as a positive control to prove the methodology can identify edge when it exists.
 
-## Planned scope — comprehensive empirical survey
+## The survey — comprehensive empirical study
 
-Each case study answers a distinct research question:
+Five case studies, each answering a distinct research question. **All five are complete**, evaluated through the identical harness for direct comparison.
 
 | Case | Question | Asset | Status |
 | --- | --- | --- | --- |
-| 1 | Off-the-shelf tabular ML on equities — which family fails least? | US large-caps | GBM done; bake-off (linear/RF/MLP × binary/triple-barrier × with/without borrow) in progress |
-| 2 | **Crypto signal universe — do funding-rate edges actually exist?** | Binance USDT perps | LSTM/TCN done; signal universe (carry rank · basis · positioning · premium) in progress |
-| 3 | Sequence models on crypto — do recurrent / dilated-conv / attention architectures earn anything when fed the *right* features? | Binance USDT perps | LSTM/TCN done; Transformer + best-features in progress |
-| 4 | LLM-derived news sentiment — does it add anything price-only features miss? | Equities + crypto | planned (Groq free tier) |
-| 5 | **Positive control** — can the harness identify Jegadeesh-Titman 12-1 momentum? | US large-caps | planned (runs *first* to calibrate) |
+| 1 | Off-the-shelf tabular ML on equities — which family fails least? (logistic/RF/GBM × binary/triple-barrier, with borrow) | US large-caps | ✅ done |
+| 2 | **Crypto signal universe — do funding-rate / basis / positioning edges actually exist?** (returns · funding-level · carry-rank · basis · union) | Binance USDT perps | ✅ done |
+| 3 | Sequence models on crypto — do recurrent / dilated-conv / attention architectures earn anything fed the *right* features? (LSTM/TCN/Transformer) | Binance USDT perps | ✅ done |
+| 4 | LLM-derived news sentiment — does it add anything price-only features miss? | Equities + crypto | ✅ done (data-constrained) |
+| 5 | **Positive control** — can the harness identify Jegadeesh-Titman 12-1 momentum? | US large-caps | ✅ done (runs *first* to calibrate) |
 
-Each case reports identical metrics for direct comparison. The cross-cutting writeup at [`docs/writeup.md`](docs/writeup.md) ties the survey together as a paper-lite (~4,000-word target).
+The cross-cutting writeup at [`docs/writeup.md`](docs/writeup.md) ties the survey together as a paper-lite (~4,400 words).
 
-## Status (current verdicts at v0.2 harness)
+## Results — current verdicts
 
 16 specifications across two asset classes, six model families, three label types. **Three cases are NEAR-MISSes**, with the LSTM/carry-rank cell coming closest to passing the unconditional bar (DSR(0.25) ≈ 0.46).
 
@@ -99,7 +99,7 @@ src/backtester/
 notebooks/      # 5 case studies (see notebooks/README.md)
 docs/writeup.md # paper-lite empirical study (~4,000-word target)
 samples/        # bundled OHLCV CSVs + universe snapshot + CI fixtures
-tests/          # 90+ tests: leakage invariants, CPCV correctness, label semantics, costs, models
+tests/          # 112 tests: leakage invariants, CPCV correctness, label semantics, costs, models
 ```
 
 ## Methodology references
@@ -111,6 +111,16 @@ tests/          # 90+ tests: leakage invariants, CPCV correctness, label semanti
 - Jegadeesh, N. & Titman, S. (1993). *Returns to Buying Winners and Selling Losers.* Journal of Finance.
 - Politis, D.N. & Romano, J.P. (1994). *The Stationary Bootstrap.* Journal of the American Statistical Association.
 - Schmeling, M., Schrimpf, A. & Todorov, K. (2023). *Crypto Carry.* BIS Working Paper 1087.
+
+## Roadmap / Future work
+
+v1.0.0 ships the eval harness and the 5-case survey as a complete, self-contained study. Everything below is deliberately **out of scope for v1** and tracked in [`ROADMAP.md`](ROADMAP.md):
+
+- Paper-trading / live deployment of any near-miss signal.
+- Regime-gating — turn the documented regime-conditional edge into an explicit on/off rule and re-evaluate net of switching costs.
+- Intraday / higher-frequency studies (this survey is daily-bar only).
+- A true point-in-time universe / index-membership feed to replace the hand-curated list.
+- A stronger-LLM sentiment benchmark and a paid multi-year news archive for Case 4.
 
 ## Honest limitations
 

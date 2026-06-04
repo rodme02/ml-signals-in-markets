@@ -3,8 +3,12 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "backtester"
-version = "0.2.0"
+# Distribution / project identity. The importable Python package is still
+# `backtester` (see src/backtester/ and [tool.setuptools.packages.find]);
+# the package name is intentionally kept while the project/repo is
+# `ml-signals-in-markets`.
+name = "ml-signals-in-markets"
+version = "1.0.0"
 description = "In-depth empirical study of ML techniques applied to US equities and crypto: combinatorial purged walk-forward CV, triple-barrier labels, deflated Sharpe with PBO, realistic costs (with borrow + funding), transparent results across linear/tree/sequence/LLM-sentiment model families."
 readme = "README.md"
 license = { text = "MIT" }
@@ -23,7 +27,7 @@ keywords = [
 ]
 authors = [{ name = "Rodrigo Medeiros" }]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
   "Intended Audience :: Science/Research",
   "License :: OSI Approved :: MIT License",
